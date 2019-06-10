@@ -1,4 +1,6 @@
 # JSCB
+
+Usage:
 ```
-Usage: python jscb.py example.gb
+python jscb.py example.gb
 ```
