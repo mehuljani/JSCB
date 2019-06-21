@@ -94,4 +94,4 @@ if gicounter == 0:
 	outfile.write("No Genomic Islands Identified\n")
 outfile.close()
 os.system("rm JSCBinput")
-os.system("rm JSCB_coord")
+#os.system("rm JSCB_coord")
