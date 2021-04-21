@@ -33,9 +33,10 @@ for gb_record in SeqIO.parse(sys.argv[1], "genbank"):
 		else:
 			strand="-"
 		if feature.type == "CDS":
-			start_col.append(start)
-			end_col.append(end)
-			strand_col.append(strand)
+			if "join" not in str(feature.location):
+				start_col.append(start)
+				end_col.append(end)
+				strand_col.append(strand)
 		if feature.type == "rRNA":
 			rna_start.append(start)
 			rna_end.append(end)
