@@ -5,6 +5,7 @@ import random
 import pandas as pd
 from Bio import SeqIO
 
+
 if len(sys.argv) == 1:
 	print ("\n\nError: Please provide input file in genbank format!!\n\n")
 	sys.exit()
@@ -13,6 +14,7 @@ start_col, end_col, rna_start, rna_end, strand_col=[],[],[],[],[]
 actstart = []
 actend = []
 nucs = ['A','T','C','G']
+
 for gb_record in SeqIO.parse(sys.argv[1], "genbank"):
 	seq=gb_record.seq
 	seq=str(seq.upper())
@@ -23,10 +25,10 @@ for gb_record in SeqIO.parse(sys.argv[1], "genbank"):
 			finseq+=i
 		else:
 			finseq+=random.choice(nucs)
-
+	print (len(finseq))
 	f.write(finseq)
 	f.close()
-    
+	print("done")    
 	
 	for feature in gb_record.features:
 		start=feature.location.start+1
@@ -50,8 +52,10 @@ for gb_record in SeqIO.parse(sys.argv[1], "genbank"):
 			f1.write(str(x)+"\t"+str(y)+"\t"+str(z)+"\n")
 			actstart.append(y)
 			actend.append(z)
-	f1.close()			
-
+	f1.close()
+	print ("11111")
+	break
+	continue
 os.system("./jscb")
 
 gifile = open("JSCB_output.gi", "r")
@@ -112,3 +116,4 @@ df=pd.concat([cdf,gidf], axis=1)
 df["clus_label"]=df.apply(lambda x: "A" if int(x["clus_id"])!=int(natclus) else "N", axis=1)
 df=df[["strand","start","end","clus_id","clus_size","clus_label"]]
 df.to_csv("JSCB_clus_info.tsv",sep="\t",index=False)
+
